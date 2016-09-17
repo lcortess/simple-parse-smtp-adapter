@@ -1,0 +1,30 @@
+{
+  "name": "simple-parse-smtp-adapter",
+  "version": "1.0.0",
+  "description": "Send custom emails from parse with SMTP access",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "parse",
+    "email",
+    "adapter",
+    "templates",
+    "parse.com"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Jose Luis <jose@lcortes.net> (http://lcortes.net)",
+  "license": "ISC",
+  "dependencies": {
+    "email-templates": "^2.4.1",
+    "jade": "^1.11.0",
+    "less": "^2.7.1",
+    "nodemailer": "^2.5.0",
+    "path": "^0.12.7"
+  }
+}
