@@ -8,7 +8,15 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
     }
 
-    let transporter = nodemailer.createTransport(`smtps://${adapterOptions.user}:${adapterOptions.password}@${adapterOptions.host}`);
+    let transporter = nodemailer.createTransport({
+        host: adapterOptions.host,
+        port: adapterOptions.port,
+        secure: adapterOptions.isSSL || true,
+        auth: {
+            user: adapterOptions.user,
+            pass: adapterOptions.password
+        }
+    });
 
     /**
      * Return an email template with data rendered using email-templates module
