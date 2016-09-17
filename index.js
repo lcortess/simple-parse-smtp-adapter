@@ -1,7 +1,7 @@
 "use strict";
+const path = require('path');
 const nodemailer = require("nodemailer");
 const EmailTemplate = require('email-templates').EmailTemplate;
-const path = require('path');
 
 let SimpleParseSmtpAdapter = (adapterOptions) => {
     if (!adapterOptions || !adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
