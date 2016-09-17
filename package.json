@@ -19,7 +19,7 @@
     "url": ""
   },
   "author": "Jose Luis <jose@lcortes.net> (http://lcortes.net)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "email-templates": "^2.4.1",
     "jade": "^1.11.0",
