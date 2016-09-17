@@ -77,8 +77,10 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
 
         if (adapterOptions.templates && adapterOptions.templates.resetPassword) {
 
-            return renderTemplate(adapterOptions.templates.resetPassword, data).then(function(result) {
+            return renderTemplate(adapterOptions.templates.resetPassword.template, data).then(function(result) {
                 mail.text = result.html;
+                mail.subject = adapterOptions.templates.resetPassword.subject;
+
                 return sendMail(mail);
             }, function(e) {
                 return new Promise(function(resolve, reject) {
