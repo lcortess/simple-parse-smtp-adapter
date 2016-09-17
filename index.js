@@ -5,7 +5,7 @@ const EmailTemplate = require('email-templates').EmailTemplate;
 
 let SimpleParseSmtpAdapter = (adapterOptions) => {
     if (!adapterOptions || !adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
-        throw 'SimpleParseSMTPAdapter requires user, password, host, fromAddress';
+        throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
     }
 
     let transporter = nodemailer.createTransport(`smtps://${adapterOptions.user}:${adapterOptions.password}@${adapterOptions.host}`);
@@ -18,7 +18,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
      * @param Object data object with data for use in template
      */
     let renderTemplate = (template, data) => {
-        let templateDir = path.join(__dirname, template);
+        let templateDir = template;
         let html = new EmailTemplate(templateDir);
 
         return new Promise(function(resolve, reject) {
@@ -63,7 +63,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
      */
     let sendPasswordResetEmail = (data) => {
         let mail = {
-            to: data.user.get('username'),
+            to: data.user.get('email'),
             subject: 'Reset Password'
         };
 
