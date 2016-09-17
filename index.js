@@ -47,10 +47,10 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
      */
     let sendMail = (mail) => {
         let mailOptions = {
-            from: adapterOptions.fromAddress,
             to: mail.to,
-            subject: mail.subject,
             html: mail.text,
+            subject: mail.subject,
+            from: adapterOptions.fromAddress
         };
 
         return new Promise((resolve, reject) => {
@@ -71,8 +71,8 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
      */
     let sendPasswordResetEmail = (data) => {
         let mail = {
-            to: data.user.get('email'),
-            subject: 'Reset Password'
+            subject: 'Reset Password',
+            to: data.user.get('email')
         };
 
         if (adapterOptions.templates && adapterOptions.templates.resetPassword) {
@@ -83,6 +83,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
 
                 return sendMail(mail);
             }, function(e) {
+
                 return new Promise(function(resolve, reject) {
                     reject(e);
                 });
