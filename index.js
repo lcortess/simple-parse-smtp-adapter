@@ -8,6 +8,9 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
     }
 
+    /**
+     * Creates trasporter for send emails
+     */
     let transporter = nodemailer.createTransport({
         host: adapterOptions.host,
         port: adapterOptions.port,
@@ -17,6 +20,23 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             pass: adapterOptions.password
         }
     });
+
+    /**
+     * When emailField is defined in adapterOptines return that field
+     * if not return the field email and if is undefined returns username
+     * 
+     * @param Parse Object user
+     * @return String email
+     */
+    let getUserEmail = function(user) {
+        let email = user.get('email') || user.get('username');
+
+        if (adapterOptions.emailField) {
+            email = user.get(adapterOptions.emailField);
+        }
+
+        return email;
+    };
 
     /**
      * Return an email template with data rendered using email-templates module
