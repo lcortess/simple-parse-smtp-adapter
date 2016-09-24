@@ -43,6 +43,10 @@ let api = new ParseServer({
 			host: 'your.smtp.host',
 			isSSL: true, //True or false if you is using ssl
 			port: 465, //SSL port or another port
+			//Somtimes the user email is not in the 'email' field, the email is search first in
+			//email field, then in username field, if you have the user email in another field
+			//You can specify here
+			emailField: 'username', 
 			templates: {
 			    //This template is used only for reset password email
 				resetPassword: {

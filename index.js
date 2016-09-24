@@ -8,6 +8,9 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
     }
 
+    /**
+     * Creates trasporter for send emails
+     */
     let transporter = nodemailer.createTransport({
         host: adapterOptions.host,
         port: adapterOptions.port,
@@ -17,6 +20,23 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             pass: adapterOptions.password
         }
     });
+
+    /**
+     * When emailField is defined in adapterOptines return that field
+     * if not return the field email and if is undefined returns username
+     * 
+     * @param Parse Object user
+     * @return String email
+     */
+    let getUserEmail = (user) => {
+        let email = user.get('email') || user.get('username');
+
+        if (adapterOptions.emailField) {
+            email = user.get(adapterOptions.emailField);
+        }
+
+        return email;
+    };
 
     /**
      * Return an email template with data rendered using email-templates module
@@ -29,8 +49,8 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         let templateDir = template;
         let html = new EmailTemplate(templateDir);
 
-        return new Promise(function(resolve, reject) {
-            html.render(data, function (err, result) {
+        return new Promise((resolve, reject) => {
+            html.render(data, (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -54,7 +74,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         };
 
         return new Promise((resolve, reject) => {
-            transporter.sendMail(mailOptions, function(error, info) {
+            transporter.sendMail(mailOptions, (error, info) => {
                 if(error) {
                     reject(error);
                 } else {
@@ -72,19 +92,19 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
     let sendPasswordResetEmail = (data) => {
         let mail = {
             subject: 'Reset Password',
-            to: data.user.get('email')
+            to: this.getUserEmail(data.user)
         };
 
         if (adapterOptions.templates && adapterOptions.templates.resetPassword) {
 
-            return renderTemplate(adapterOptions.templates.resetPassword.template, data).then(function(result) {
+            return renderTemplate(adapterOptions.templates.resetPassword.template, data).then((result) => {
                 mail.text = result.html;
                 mail.subject = adapterOptions.templates.resetPassword.subject;
 
                 return sendMail(mail);
-            }, function(e) {
+            }, (e) => {
 
-                return new Promise(function(resolve, reject) {
+                return new Promise((resolve, reject) => {
                     reject(e);
                 });
             });
