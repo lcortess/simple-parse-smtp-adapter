@@ -92,7 +92,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
     let sendPasswordResetEmail = (data) => {
         let mail = {
             subject: 'Reset Password',
-            to: data.user.get('email')
+            to: this.getUserEmail(data.user)
         };
 
         if (adapterOptions.templates && adapterOptions.templates.resetPassword) {
