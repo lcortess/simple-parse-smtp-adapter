@@ -12,7 +12,7 @@ $ npm install --save simple-parse-smtp-adapter
 
 ### Use
 
-In the configuration of your parse server you must pass `simple-parse-smtp-adapter` as email adapter and set your SMTP access for send emails also the path to your jade and less template.
+In the configuration of your parse server you must pass `simple-parse-smtp-adapter` as email adapter and set your SMTP access for send emails also the path to your jade template and its less file.
 
 This is an example using parse server as express module:
 
@@ -41,7 +41,7 @@ let api = new ParseServer({
 			user: 'email@email.com',
 			password: 'AwesomePassword',
 			host: 'your.smtp.host',
-			isSSL: true, //True or false if you is using ssl
+			isSSL: true, //True or false if you are using ssl
 			port: 465, //SSL port or another port
 			//Somtimes the user email is not in the 'email' field, the email is search first in
 			//email field, then in username field, if you have the user email in another field
@@ -71,7 +71,7 @@ app.listen(APP_PORT, function () {
 ```
 
 ### Template
-The path that you pass to email the email adapter must be a directory and not a file, this path must contain 2 mandatory files `html.jade` and `style.less` you can so your template as you like with the [CSS rules that emails supports](https://www.campaignmonitor.com/css/) in the template you can use 3 variables:
+The path you pass to the email adapter must be a directory and not a file, this path must contain 2 mandatory files `html.jade` and `style.less` you can do your template as you like with the [CSS rules that emails supports](https://www.campaignmonitor.com/css/) in the template you can use 3 variables:
 
 - appName //This is the name of your parse app
 - link //This is the link for reset the password
@@ -83,5 +83,3 @@ This module is pull request friendly in the develop branch feel free of send new
 If you find a bug please open an issue.
 
 ### License MIT
-
-
