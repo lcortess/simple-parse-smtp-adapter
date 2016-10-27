@@ -14,7 +14,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
     let transporter = nodemailer.createTransport({
         host: adapterOptions.host,
         port: adapterOptions.port,
-        secure: adapterOptions.isSSL || true,
+        secure: adapterOptions.isSSL,
         auth: {
             user: adapterOptions.user,
             pass: adapterOptions.password
