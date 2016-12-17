@@ -55,6 +55,10 @@ let api = new ParseServer({
 					template: __dirname + '/views/email/reset-password',
 					//Subject for this email
 					subject: 'Reset your password'
+				},
+				verifyEmail: {
+				template: __dirname + '/views/email/verify-email',
+				subject: 'Verify Email'
 				}
 			}
 		}
