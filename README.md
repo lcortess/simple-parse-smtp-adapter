@@ -1,6 +1,6 @@
 # Simple Parse Server SMTP Email Adapter
 
-With this adapter you can send email for reset pasword in parse with SMTP access and custom templates, I am doing methods for support email verification, and templates for reset pasword pages :)
+With this adapter you can send email for reset password and email verification in parse with SMTP access and custom templates, I am doing methods for support email verification, and templates for reset password pages :)
 
 ### Installation
 
@@ -57,8 +57,8 @@ let api = new ParseServer({
 					subject: 'Reset your password'
 				},
 				verifyEmail: {
-				template: __dirname + '/views/email/verify-email',
-				subject: 'Verify Email'
+				    template: __dirname + '/views/email/verify-email',
+				    subject: 'Verify Email'
 				}
 			}
 		}
