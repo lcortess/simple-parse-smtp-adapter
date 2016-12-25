@@ -14,10 +14,14 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
     let transporter = nodemailer.createTransport({
         host: adapterOptions.host,
         port: adapterOptions.port,
-        secure: adapterOptions.isSSL || true,
+        secure: adapterOptions.isSSL,
+        name: adapterOptions.name || '127.0.0.1',
         auth: {
             user: adapterOptions.user,
             pass: adapterOptions.password
+        },
+        tls: {
+            rejectUnauthorized: adapterOptions.isTlsRejectUnauthorized || true
         }
     });
 
@@ -116,9 +120,42 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         }
     };
 
+    /**
+     * When this method is available parse use for send email for email verification
+     * @param data This object contain {appName}, {link} and {user} user is an object parse of User class
+     * @returns {Promise}
+     */
+    let sendVerificationEmail = (data) => {
+        let mail = {
+            subject: 'Verify Email',
+            to: getUserEmail(data.user)
+        };
+
+        if (adapterOptions.templates && adapterOptions.templates.verifyEmail) {
+
+            return renderTemplate(adapterOptions.templates.verifyEmail.template, data).then((result) => {
+                mail.text = result.html;
+                mail.subject = adapterOptions.templates.verifyEmail.subject;
+
+                return sendMail(mail);
+            }, (e) => {
+
+                return new Promise((resolve, reject) => {
+                    reject(e);
+                });
+            });
+
+        } else {
+            mail.text = data.link;
+
+            return sendMail(mail);
+        }
+    };
+
     return Object.freeze({
         sendMail: sendMail,
-        sendPasswordResetEmail: sendPasswordResetEmail
+        sendPasswordResetEmail: sendPasswordResetEmail,
+        sendVerificationEmail: sendVerificationEmail
     });
 };
 

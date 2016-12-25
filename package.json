@@ -1,6 +1,6 @@
 {
     "name": "simple-parse-smtp-adapter",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "Send custom emails from parse with SMTP access",
     "main": "index.js",
     "scripts": {
