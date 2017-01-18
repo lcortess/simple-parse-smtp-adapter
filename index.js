@@ -56,6 +56,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         return new Promise((resolve, reject) => {
             html.render(data, (err, result) => {
                 if (err) {
+                    console.log(err)
                     reject(err);
                 } else {
                     resolve(result);
@@ -80,6 +81,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         return new Promise((resolve, reject) => {
             transporter.sendMail(mailOptions, (error, info) => {
                 if(error) {
+                    console.log(error)
                     reject(error);
                 } else {
                     resolve(info);
@@ -109,6 +111,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             }, (e) => {
 
                 return new Promise((resolve, reject) => {
+                    console.log(e)
                     reject(e);
                 });
             });
@@ -141,6 +144,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             }, (e) => {
 
                 return new Promise((resolve, reject) => {
+                    console.log(e);
                     reject(e);
                 });
             });
