@@ -21,7 +21,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             pass: adapterOptions.password
         },
         tls: {
-            rejectUnauthorized: adapterOptions.isTlsRejectUnauthorized || true
+            rejectUnauthorized: adapterOptions.isTlsRejectUnauthorized !== undefined ? adapterOptions.isTlsRejectUnauthorized : true
         }
     });
 
@@ -144,7 +144,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             }, (e) => {
 
                 return new Promise((resolve, reject) => {
-                    console.log(e)
+                    console.log(e);
                     reject(e);
                 });
             });
