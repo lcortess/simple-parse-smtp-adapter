@@ -158,7 +158,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
 
     return Object.freeze({
         sendMail: sendMail,
-        renderTemplate:renderTemplate,
+        renderTemplate: renderTemplate,
         sendPasswordResetEmail: sendPasswordResetEmail,
         sendVerificationEmail: sendVerificationEmail
     });
