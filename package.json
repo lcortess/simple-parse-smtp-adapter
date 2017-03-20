@@ -18,13 +18,14 @@
         "type": "git",
         "url": "https://github.com/lcortess/simple-parse-smtp-adapter"
     },
-    "author": "Jose Luis <jose@lcortes.net> (http://lcortes.net)",
+    "author": "Jose Luis <jose@lcortes.net> (http://lcortes.net), Muhamad Muchlis <tru3.d3v@gmail.com>",
     "license": "MIT",
     "dependencies": {
         "email-templates": "^2.4.1",
         "jade": "^1.11.0",
         "less": "^2.7.1",
-        "nodemailer": "^2.5.0",
-        "path": "^0.12.7"
+        "nodemailer": "^3.1.7",
+        "path": "^0.12.7",
+        "xoauth2": "^1.2.0"
     }
 }
