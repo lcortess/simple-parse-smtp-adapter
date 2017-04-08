@@ -4,14 +4,47 @@ const nodemailer = require("nodemailer");
 const EmailTemplate = require('email-templates').EmailTemplate;
 
 let SimpleParseSmtpAdapter = (adapterOptions) => {
-    if (!adapterOptions || !adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
-        throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
+
+    if(!adapterOptions && adapterOptions.service=='Gmail'){
+        if (!adapterOptions ||  
+            !adapterOptions.service|| 
+            !adapterOptions.type ||  
+            !adapterOptions.user || 
+            !adapterOptions.clientId || 
+            !adapterOptions.clientSecret|| 
+            !adapterOptions.refreshToken || 
+            !adapterOptions.accessToken ) {
+            throw 'SimpleParseSMTPAdapter requires service,type, user, clientId,clientSecret,refreshToken and accessToken';
+        }
+    }
+    else if(!adapterOptions && adapterOptions.service=='SMTP'){
+            if (!adapterOptions || !adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
+                throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
+            }
+    }else{
+            throw 'SimpleParseSMTPAdapter please choose service Gmail or SMTP';
     }
 
     /**
-     * Creates trasporter for send emails
+     * Creates trasporter for send emails with OAuth2 Gmail
      */
-    let transporter = nodemailer.createTransport({
+    let transporterOAuth2Gmail = nodemailer.createTransport({
+        service: adapterOptions.service,
+        auth: {
+            type: adapterOptions.type,
+            user: adapterOptions.user,
+            clientId: adapterOptions.clientId,
+            clientSecret: adapterOptions.clientSecret,
+            refreshToken: adapterOptions.refreshToken,
+            accessToken: adapterOptions.refreshToken,
+            expires: adapterOptions.expires
+        }
+    });
+
+    /**
+     * Creates trasporter for send emails with OAuth2 Gmail
+     */
+     let transporter = nodemailer.createTransport({
         host: adapterOptions.host,
         port: adapterOptions.port,
         secure: adapterOptions.isSSL,
@@ -79,14 +112,28 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         };
 
         return new Promise((resolve, reject) => {
-            transporter.sendMail(mailOptions, (error, info) => {
-                if(error) {
-                    console.log(error)
-                    reject(error);
-                } else {
-                    resolve(info);
-                }
-            });
+
+            if(adapterOptions.service=='SMTP'){
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if(error) {
+                        console.log(error)
+                        reject(error);
+                    } else {
+                        resolve(info);
+                    }
+                });
+            }
+            else if(adapterOptions.service=='Gmail'){
+                transporterOAuth2Gmail.sendMail(mailOptions, (error, info) => {
+                    if(error) {
+                        console.log(error)
+                        reject(error);
+                    } else {
+                        resolve(info);
+                    }
+                });
+            }
+
         });
     };
 

@@ -25,6 +25,10 @@ const ParseServer = require('parse-server').ParseServer;
 const app = Express();
 const APP_PORT = 1337;
 
+let options = {
+
+};
+
 let api = new ParseServer({
 	appName: "Parse Test",
 	appId: "12345",
@@ -37,12 +41,17 @@ let api = new ParseServer({
 	emailAdapter: {
 		module: "simple-parse-smtp-adapter",
 		options: {
+			service:'Gmail', // required
+			clientId:'your_clientid_get_from_console_google_developers',
+            clientSecret:'your_clientsecret_get_from_console_google_developers',
+            refreshToken:'your_refresh_token_get_from_console_google_developers',
+            accessToken:'your_access_token_get_from_console_google_developers',
 			fromAddress: 'your@sender.address',
-			user: 'email@email.com',
-			password: 'AwesomePassword',
-			host: 'your.smtp.host',
-			isSSL: true, //True or false if you are using ssl
-			port: 465, //SSL port or another port
+			user: 'email@email.com', //#"required for service SMTP"
+			//password: 'AwesomePassword',  //#"required for service SMTP"
+			//host: 'your.smtp.host',  //#"required for service SMTP"
+			//isSSL: true, //True or false if you are using ssl  //#"required for service SMTP"
+			//port: 465, //SSL port or another port //#"required for service SMTP"
 			name: 'your domain name', //  optional, used for identifying to the server 
 			//Somtimes the user email is not in the 'email' field, the email is search first in
 			//email field, then in username field, if you have the user email in another field
