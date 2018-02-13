@@ -21,10 +21,10 @@
     "author": "Jose Luis <jose@lcortes.net> (http://lcortes.net)",
     "license": "MIT",
     "dependencies": {
-        "email-templates": "^2.4.1",
-        "jade": "^1.11.0",
-        "less": "^2.7.1",
-        "nodemailer": "^2.5.0",
-        "path": "^0.12.7"
+        "email-templates": "^3.3.4",
+        "less": "^3.0.0",
+        "nodemailer": "^4.4.2",
+        "path": "^0.12.7",
+        "pug": "^2.0.0-rc.4"
     }
 }

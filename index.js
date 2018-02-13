@@ -1,7 +1,7 @@
 "use strict";
 const path = require('path');
 const nodemailer = require("nodemailer");
-const EmailTemplate = require('email-templates').EmailTemplate;
+const Email = require('email-templates');
 
 let SimpleParseSmtpAdapter = (adapterOptions) => {
     if (!adapterOptions || !adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
@@ -51,18 +51,13 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
      */
     let renderTemplate = (template, data) => {
         let templateDir = template;
-        let html = new EmailTemplate(templateDir);
-
-        return new Promise((resolve, reject) => {
-            html.render(data, (err, result) => {
-                if (err) {
-                    console.log(err)
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            });
+        let templateFile = "html";
+        
+        let html = new Email({
+            views: { root: templateDir }
         });
+        
+        return html.render(templateFile, data);
     };
 
     /**
@@ -104,7 +99,7 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         if (adapterOptions.templates && adapterOptions.templates.resetPassword) {
 
             return renderTemplate(adapterOptions.templates.resetPassword.template, data).then((result) => {
-                mail.text = result.html;
+                mail.text = result;
                 mail.subject = adapterOptions.templates.resetPassword.subject;
 
                 return sendMail(mail);
@@ -135,9 +130,9 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         };
 
         if (adapterOptions.templates && adapterOptions.templates.verifyEmail) {
-
+            
             return renderTemplate(adapterOptions.templates.verifyEmail.template, data).then((result) => {
-                mail.text = result.html;
+                mail.text = result;
                 mail.subject = adapterOptions.templates.verifyEmail.subject;
 
                 return sendMail(mail);
