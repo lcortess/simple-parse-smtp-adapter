@@ -5,7 +5,10 @@ const EmailTemplate = require('email-templates').EmailTemplate;
 
 let SimpleParseSmtpAdapter = (adapterOptions) => {
 
-    if(!adapterOptions && adapterOptions.service=='Gmail'){
+    if (!adapterOptions) {
+        throw 'SimpleParseSMTPAdapter requires adapter options';
+    }
+    else if(adapterOptions.service=='Gmail'){
         if (!adapterOptions ||  
             !adapterOptions.service|| 
             !adapterOptions.type ||  
@@ -17,8 +20,8 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
             throw 'SimpleParseSMTPAdapter requires service,type, user, clientId,clientSecret,refreshToken and accessToken';
         }
     }
-    else if(!adapterOptions && adapterOptions.service=='SMTP'){
-            if (!adapterOptions || !adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
+    else if(adapterOptions.service=='SMTP'){
+            if (!adapterOptions.user || !adapterOptions.password || !adapterOptions.host || !adapterOptions.fromAddress ) {
                 throw 'SimpleParseSMTPAdapter requires user, password, host, and fromAddress';
             }
     }else{
