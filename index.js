@@ -149,23 +149,14 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         };
 
         if (adapterOptions.templates && adapterOptions.templates.resetPassword) {
-
-            return renderTemplate(adapterOptions.templates.resetPassword.template, data).then((result) => {
+            let resetPassword = adapterOptions.templates.resetPassword;
+            return renderTemplate(resetPassword.template, data).then((result) => {
                 mail.text = result.html;
-                mail.subject = adapterOptions.templates.resetPassword.subject;
-
+                mail.subject = resetPassword.subject;
                 return sendMail(mail);
-            }, (e) => {
-
-                return new Promise((resolve, reject) => {
-                    console.log(e)
-                    reject(e);
-                });
             });
-
         } else {
             mail.text = data.link;
-
             return sendMail(mail);
         }
     };
@@ -182,23 +173,15 @@ let SimpleParseSmtpAdapter = (adapterOptions) => {
         };
 
         if (adapterOptions.templates && adapterOptions.templates.verifyEmail) {
-
-            return renderTemplate(adapterOptions.templates.verifyEmail.template, data).then((result) => {
+            let verifyEmail = adapterOptions.templates.verifyEmail;
+            return renderTemplate(verifyEmail.template, data).then((result) => {
                 mail.text = result.html;
-                mail.subject = adapterOptions.templates.verifyEmail.subject;
-
+                mail.subject = verifyEmail.subject;
                 return sendMail(mail);
-            }, (e) => {
-
-                return new Promise((resolve, reject) => {
-                    console.log(e);
-                    reject(e);
-                });
             });
 
         } else {
             mail.text = data.link;
-
             return sendMail(mail);
         }
     };
