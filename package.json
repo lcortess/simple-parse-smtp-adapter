@@ -1,31 +1,32 @@
 {
-    "name": "simple-parse-smtp-adapter",
-    "version": "1.0.9",
-    "description": "Send custom emails from parse with SMTP access",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js"
-    },
-    "keywords": [
-        "parse",
-        "email",
-        "adapter",
-        "templates",
-        "parse.com"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lcortess/simple-parse-smtp-adapter"
-    },
-    "author": "Jose Luis <jose@lcortes.net> (http://lcortes.net), Muhamad Muchlis <tru3.d3v@gmail.com>",
-    "license": "MIT",
-    "dependencies": {
-        "email-templates": "^2.4.1",
-        "jade": "^1.11.0",
-        "less": "^2.7.1",
-        "nodemailer": "^3.1.7",
-        "path": "^0.12.7",
-        "xoauth2": "^1.2.0"
-    }
+  "name": "simple-parse-smtp-adapter",
+  "version": "2.0.0",
+  "description": "Send custom emails from parse with SMTP access",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "parse",
+    "email",
+    "adapter",
+    "templates",
+    "handlebars"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/music-bat/simple-parse-smtp-adapter"
+  },
+  "author": "Pascal Malbranche <pascal@malbranche.de>, Jose Luis <jose@lcortes.net> (http://lcortes.net), Muhamad Muchlis <tru3.d3v@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "email-templates": "^8.0.8",
+    "handlebars": "^4.7.7",
+    "nodemailer": "^6.7.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
 }
